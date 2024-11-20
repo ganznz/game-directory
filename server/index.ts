@@ -1,13 +1,14 @@
 // load server env vars before anything else
 import "./config/init.js";
 
-import express from "express";
+import express, { NextFunction } from "express";
 import { Response, Request } from "express";
 
 import { homeRouter } from "./routes/homeRouter.js";
 import { gameRouter } from "./routes/gameRouter.js";
 import { genreRouter } from "./routes/genreRouter.js";
 import { companyRouter } from "./routes/companyRouter.js";
+import { errorHandler } from "./controllers/middleware.js";
 
 const PORT = 8080;
 
@@ -28,6 +29,6 @@ app.listen(PORT, () => {
 });
 
 // error handling middleware
-app.use((err: Error, _req: Request, _res: Response) => {
-    console.error(err);
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    errorHandler(err, req, res, next);
 });
