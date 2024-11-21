@@ -1,7 +1,10 @@
 import qs from "qs";
 import { Request, Response, NextFunction } from "express";
 
-import { gamesSanitizedQueryParams } from "../utils/types.js";
+import {
+    gamesSanitizedQueryParams,
+    genresSanitizedQueryParams,
+} from "../utils/types.js";
 import { AppError } from "../utils/errors.js";
 
 export const validateQueryParams = (
@@ -32,6 +35,27 @@ export const sanitizeGamesQueryParams = (
             sort == "first_release_date"
                 ? sort
                 : undefined,
+        direction:
+            direction == "asc" || direction == "desc" ? direction : "asc",
+        limit: (parsedQueryParams?.limit as string) || "50",
+        page: (parsedQueryParams?.page as string) || "1",
+    };
+    req.sanitizedQueryParams = sanitizedQueryParams;
+
+    next();
+};
+
+export const sanitizeGenresQueryParams = (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+) => {
+    const parsedQueryParams = req.parsedQueryParams;
+    const sort = parsedQueryParams?.sort;
+    const direction = parsedQueryParams?.direction;
+
+    const sanitizedQueryParams: genresSanitizedQueryParams = {
+        sort: sort == "name" ? sort : undefined,
         direction:
             direction == "asc" || direction == "desc" ? direction : "asc",
         limit: (parsedQueryParams?.limit as string) || "50",
