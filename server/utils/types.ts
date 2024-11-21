@@ -4,3 +4,10 @@ export interface gamesSanitizedQueryParams {
     limit: string;
     page: string;
 }
+
+export interface genresSanitizedQueryParams {
+    sort?: "name";
+    direction: "asc" | "desc";
+    limit: string;
+    page: string;
+}
