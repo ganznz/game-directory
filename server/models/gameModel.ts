@@ -26,4 +26,21 @@ export class GameModel {
             throw createBadRequestError("Invalid filter options");
         }
     };
+
+    fetchGameById = async (id: string) => {
+        try {
+            const reqBody = `
+                fields name, summary, storyline, total_rating_count, alternative_names.name, artworks.url, dlcs.name,
+                first_release_date, franchise.name, game_engines.name, genres.name, involved_companies.developer,
+                involved_companies.publisher, involved_companies.company.name, involved_companies.company.description,
+                involved_companies.company.logo, involved_companies.company.start_date, involved_companies.company.websites.url, websites.url;
+                where id = ${id};
+            `;
+
+            const res = await igdbApiClient.post("/games", reqBody);
+            return res.data;
+        } catch (err) {
+            throw createBadRequestError("Invalid game ID");
+        }
+    };
 }

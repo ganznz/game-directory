@@ -9,4 +9,3 @@ export const gameRouter = Router();
 
 gameRouter.get("/", getGames);
 gameRouter.get("/:id", getGameById);
-gameRouter.get("/:genre", getGamesByGenre);
