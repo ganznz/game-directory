@@ -15,7 +15,7 @@ export class GenreModel {
             const genresReqBody = `
                 fields id, name;
                 sort ${sortBy} ${sortDirection};
-                limit 500;
+                limit ${limit};
                 offset ${(parseInt(page) - 1) * parseInt(limit)};
             `;
             const genresRes = await igdbApiClient.post(
@@ -30,7 +30,10 @@ export class GenreModel {
             // then get games that match the id's in the genre array
             const gamesReqBody = `
                 fields name, genres.id, cover.url;
-                where genres.id = (${genreArr.join(",")});
+                where genres != null & genres.id = (${genreArr.join(
+                    ","
+                )}) & category = 0 & cover.url != null;
+                sort total_rating desc;
                 limit 500;
             `;
             const gamesRes = await igdbApiClient.post("/games", gamesReqBody);
