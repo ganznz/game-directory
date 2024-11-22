@@ -11,8 +11,9 @@ const genreModel = new GenreModel();
 const fetchGenres = genreModel.fetchGenres;
 const fetchGamesByGenreIDs = genreModel.fetchGamesByGenreIDs;
 const fetchGenreById = genreModel.fetchGenreById;
+const fetchCompaniesByGenreId = genreModel.fetchCompaniesByGenreId;
 
-export const getGenres = [
+export const getGeneralGenresData = [
     validateQueryParams,
     sanitizeGenresQueryParams,
     async (req: Request, res: Response, next: NextFunction) => {
@@ -70,18 +71,32 @@ export const getGenres = [
             if (err instanceof AppError) {
                 return next(err);
             }
-            return next(createServerError("Error handling your request"));
+            return next(
+                createServerError("There was an error retreiving genre data")
+            );
         }
     },
 ];
 
-export const getGenreById = async (
+export const getGenreDataById = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
     try {
-        const genreData = await fetchGenreById(req.params.id);
+        const genreId = req.params.id;
+        const genreData = await fetchGenreById(genreId);
+        const companiesInGenreData = await fetchCompaniesByGenreId(genreId);
+        const gamesInGenreData = await fetchGamesByGenreIDs(
+            [parseInt(genreId)],
+            20
+        );
+
+        res.status(200).send({
+            genre: genreData,
+            gamesInGenre: gamesInGenreData,
+            companiesInGenre: companiesInGenreData,
+        });
     } catch (err) {
         // error is likely propagated up the callstack from fetchGenreById method
         return next(err);
