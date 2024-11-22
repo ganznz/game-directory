@@ -11,7 +11,6 @@ export class GenreModel {
             const page = opts.page;
             const limit = opts.limit;
 
-            // first get the existing genre id's
             const genresReqBody = `
                 fields id, name;
                 sort ${sortBy} ${sortDirection};
@@ -22,26 +21,60 @@ export class GenreModel {
                 "/genres",
                 genresReqBody
             );
-            const genresData = genresRes.data;
-            const genreArr = genresData.map(
-                (genreData: Record<string, string>) => genreData.id
-            );
 
-            // then get games that match the id's in the genre array
+            return genresRes.data;
+        } catch (err) {
+            throw createBadRequestError(
+                "Invalid filter options specified for fetching genres"
+            );
+        }
+    };
+
+    fetchGamesByGenreIDs = async (genreIds: number[]) => {
+        try {
             const gamesReqBody = `
                 fields name, genres.id, cover.url;
-                where genres != null & genres.id = (${genreArr.join(
+                where genres != null & genres.id = (${genreIds.join(
                     ","
                 )}) & category = 0 & cover.url != null;
                 sort total_rating desc;
                 limit 500;
             `;
             const gamesRes = await igdbApiClient.post("/games", gamesReqBody);
-            const gamesData = gamesRes.data;
 
-            return { games: gamesData, genres: genresData };
+            return gamesRes.data;
         } catch (err) {
-            throw createBadRequestError("Invalid filter options");
+            throw createBadRequestError(
+                "Unable to fetch games with specified genre IDs"
+            );
+        }
+    };
+
+    fetchGenreById = async (id: string) => {
+        try {
+            const reqBody = `
+                fields name;
+                where id = ${id};
+            `;
+            const res = await igdbApiClient.post("/genres", reqBody);
+
+            return res.data;
+        } catch (err) {
+            throw createBadRequestError("Specified genre ID is invalid");
+        }
+    };
+
+    fetchCompaniesByGenreId = async (id: string) => {
+        try {
+            const reqBody = `
+                fields name;
+                where id = ${id};
+            `;
+            const res = await igdbApiClient.post("/genres", reqBody);
+
+            return res.data;
+        } catch (err) {
+            throw createBadRequestError("Specified genre ID is invalid");
         }
     };
 }

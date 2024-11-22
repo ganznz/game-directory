@@ -9,27 +9,31 @@ import { AppError, createServerError } from "../utils/errors.js";
 
 const genreModel = new GenreModel();
 const fetchGenres = genreModel.fetchGenres;
+const fetchGamesByGenreIDs = genreModel.fetchGamesByGenreIDs;
+const fetchGenreById = genreModel.fetchGenreById;
 
 export const getGenres = [
     validateQueryParams,
     sanitizeGenresQueryParams,
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const genresData = await fetchGenres(req.sanitizedQueryParams);
+            const genresData: { id: number; name: string }[] =
+                await fetchGenres(req.sanitizedQueryParams);
 
-            // define array for genre data
-            const genreDataArr: { id: number; name: string }[] = Array.from(
-                genresData.genres
+            const genreIdArr = Array.from(
+                genresData,
+                (genre: { id: number; name: string }) => genre.id
             );
+            const gamesData = await fetchGamesByGenreIDs(genreIdArr);
 
-            const genresDataSendable = genreDataArr.map((genreData) => {
+            const genresDataSendable = genresData.map((genreData) => {
                 return { ...genreData, gameDetails: undefined };
             });
 
             // then populate array with data of most popular game for each genre
             let curr = genresDataSendable.length;
-            for (let i = 0; i < genresData.games.length; i++) {
-                const gameData = genresData.games[i];
+            for (let i = 0; i < gamesData.length; i++) {
+                const gameData = gamesData[i];
 
                 // see if current game being iterated over is part of genre that hasn't had game details added to array
                 const genreData: { id: number } | undefined =
@@ -41,7 +45,7 @@ export const getGenres = [
                         )
                     );
 
-                // if genreData exists, then the genre hasn't had game data added to Map yet, so add it
+                // if genreData exists, then the genre hasn't had game data added yet
                 if (genreData) {
                     const genreId = genreData?.id;
                     const genreIndexInArray = genresDataSendable.findIndex(
@@ -76,5 +80,10 @@ export const getGenreById = async (
     res: Response,
     next: NextFunction
 ) => {
-    console.log("get genre by id");
+    try {
+        const genreData = await fetchGenreById(req.params.id);
+    } catch (err) {
+        // error is likely propagated up the callstack from fetchGenreById method
+        return next(err);
+    }
 };
