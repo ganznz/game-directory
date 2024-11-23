@@ -1,21 +1,22 @@
 import { createBadRequestError } from "../utils/errors.js";
-import { genresSanitizedQueryParams } from "../utils/types.js";
+import {
+    genresSanitizedQueryParams,
+    gamesSanitizedQueryParams,
+} from "../utils/types.js";
 import { igdbApiClient } from "../services/igdb.js";
 
 export class GenreModel {
     constructor() {}
-    fetchGenres = async (opts: genresSanitizedQueryParams) => {
+    fetchGenres = async (
+        opts: genresSanitizedQueryParams,
+        fields: string[]
+    ) => {
         try {
-            const sortBy = opts.sort;
-            const sortDirection = opts.direction;
-            const page = opts.page;
-            const limit = opts.limit;
-
             const genresReqBody = `
-                fields id, name;
-                sort ${sortBy} ${sortDirection};
-                limit ${limit};
-                offset ${(parseInt(page) - 1) * parseInt(limit)};
+                fields ${fields.join(",")};
+                sort ${opts.sort} ${opts.direction};
+                limit ${opts.limit};
+                offset ${(parseInt(opts.page) - 1) * parseInt(opts.limit)};
             `;
             const genresRes = await igdbApiClient.post(
                 "/genres",
@@ -30,15 +31,19 @@ export class GenreModel {
         }
     };
 
-    fetchGamesByGenreIDs = async (genreIds: number[], limit: number = 500) => {
+    fetchGamesByGenreIDs = async (
+        genreIds: number[],
+        fields: string[],
+        opts: gamesSanitizedQueryParams
+    ) => {
         try {
             const gamesReqBody = `
-                fields name, summary, cover.url;
+                fields ${fields.join(",")};
                 where genres != null & genres.id = (${genreIds.join(
                     ","
                 )}) & category = 0 & cover.url != null;
-                sort total_rating desc;
-                limit ${limit};
+                sort ${opts.sort} ${opts.direction};
+                limit ${opts.limit};
             `;
             const gamesRes = await igdbApiClient.post("/games", gamesReqBody);
 
@@ -50,10 +55,10 @@ export class GenreModel {
         }
     };
 
-    fetchGenreById = async (id: string) => {
+    fetchGenreById = async (id: string, fields: string[]) => {
         try {
             const reqBody = `
-                fields id, name;
+                fields ${fields.join(",")};
                 where id = ${id};
             `;
             const res = await igdbApiClient.post("/genres", reqBody);
@@ -64,13 +69,16 @@ export class GenreModel {
         }
     };
 
-    fetchCompaniesByGenreId = async (id: string, limit: number = 500) => {
+    fetchCompaniesByGenreId = async (
+        id: string,
+        fields: string[],
+        opts: genresSanitizedQueryParams
+    ) => {
         try {
             const reqBody = `
-                fields involved_companies.developer, involved_companies.publisher, involved_companies.company.name,
-                involved_companies.company.description, involved_companies.company.logo.url;
+                fields ${fields.join(",")};
                 where genres != null & genres.id = (${id}) & involved_companies.company.logo.url != null;
-                limit ${limit};
+                limit ${opts.limit};
             `;
             const res = await igdbApiClient.post("/games", reqBody);
 

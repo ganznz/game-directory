@@ -5,19 +5,14 @@ import { createBadRequestError } from "../utils/errors.js";
 
 export class GameModel {
     constructor() {}
-    fetchGames = async (opts: gamesSanitizedQueryParams) => {
+    fetchGames = async (fields: string[], opts: gamesSanitizedQueryParams) => {
         try {
-            const limit = opts.limit;
-            const page = opts.page;
-            const sortBy = opts.sort;
-            const sortDirection = opts.direction;
-
             const reqBody = `
-                fields name, total_rating, cover.url;
+                fields ${fields.join(",")};
                 where category = 0 & total_rating != null & cover.url != null;
-                limit ${limit};
-                sort ${sortBy} ${sortDirection};
-                offset ${(parseInt(page) - 1) * parseInt(limit)};
+                limit ${opts.limit};
+                sort ${opts.sort} ${opts.direction};
+                offset ${(parseInt(opts.page) - 1) * parseInt(opts.limit)};
             `;
 
             const res = await igdbApiClient.post("/games", reqBody);
@@ -27,13 +22,10 @@ export class GameModel {
         }
     };
 
-    fetchGameById = async (id: string) => {
+    fetchGameById = async (id: string, fields: string[]) => {
         try {
             const reqBody = `
-                fields name, summary, storyline, total_rating_count, alternative_names.name, artworks.url, dlcs.name,
-                first_release_date, franchise.name, game_engines.name, genres.name, involved_companies.developer,
-                involved_companies.publisher, involved_companies.company.name, involved_companies.company.description,
-                involved_companies.company.logo, involved_companies.company.start_date, involved_companies.company.websites.url, websites.url;
+                fields ${fields.join(",")};
                 where id = ${id};
             `;
 

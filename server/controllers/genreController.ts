@@ -19,13 +19,22 @@ export const getGeneralGenresData = [
     async (req: Request, res: Response, next: NextFunction) => {
         try {
             const genresData: { id: number; name: string }[] =
-                await fetchGenres(req.sanitizedQueryParams);
+                await fetchGenres(req.sanitizedQueryParams, ["id", "name"]);
 
             const genreIdArr = Array.from(
                 genresData,
                 (genre: { id: number; name: string }) => genre.id
             );
-            const gamesData = await fetchGamesByGenreIDs(genreIdArr);
+            const gamesData = await fetchGamesByGenreIDs(
+                genreIdArr,
+                ["name", "summary", "cover.url"],
+                {
+                    limit: "500",
+                    sort: "total_rating",
+                    direction: "desc",
+                    page: "1",
+                }
+            );
 
             const genresDataSendable = genresData.map((genreData) => {
                 return { ...genreData, gameDetails: undefined };
@@ -85,11 +94,27 @@ export const getGenreDataById = async (
 ) => {
     try {
         const genreId = req.params.id;
-        const genreData = await fetchGenreById(genreId);
-        const companiesInGenreData = await fetchCompaniesByGenreId(genreId);
+        const genreData = await fetchGenreById(genreId, ["id", "name"]);
+        const companiesInGenreData = await fetchCompaniesByGenreId(
+            genreId,
+            [
+                "involved_companies.developer",
+                "involved_companies.publisher",
+                "involved_companies.company.name",
+                "involved_companies.company.description",
+                "involved_companies.company.logo.url",
+            ],
+            { direction: "asc", limit: "10", page: "1" }
+        );
         const gamesInGenreData = await fetchGamesByGenreIDs(
             [parseInt(genreId)],
-            20
+            ["name", "summary", "cover.url"],
+            {
+                limit: "10",
+                sort: "total_rating",
+                direction: "desc",
+                page: "1",
+            }
         );
 
         res.status(200).send({

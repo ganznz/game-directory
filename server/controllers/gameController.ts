@@ -12,7 +12,10 @@ export const getGames = [
     sanitizeGamesQueryParams,
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const gamesData = await fetchGames(req.sanitizedQueryParams);
+            const gamesData = await fetchGames(
+                ["name", "total_rating", "cover.url"],
+                req.sanitizedQueryParams
+            );
             res.status(200).send(gamesData);
         } catch (err) {
             // error is likely propagated up the callstack from fetchGames method
@@ -27,7 +30,28 @@ export const getGameById = async (
     next: NextFunction
 ) => {
     try {
-        const gameData = await fetchGameById(req.params.id);
+        console.log(req.params.id);
+        const gameData = await fetchGameById(req.params.id, [
+            "name",
+            "summary",
+            "storyline",
+            "total_rating_count",
+            "alternative_names.name",
+            "artworks.url",
+            "dlcs.name",
+            "first_release_date",
+            "franchise.name",
+            "game_engines.name",
+            "genres.name",
+            "involved_companies.developer",
+            "involved_companies.publisher",
+            "involved_companies.company.name",
+            "involved_companies.company.description",
+            "involved_companies.company.logo",
+            "involved_companies.company.start_date",
+            "involved_companies.company.websites.url",
+            "websites.url",
+        ]);
         res.status(200).send(gameData);
     } catch (err) {
         // error is likely propagated up the callstack from fetchGameById method
