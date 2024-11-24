@@ -13,7 +13,14 @@ export const getGames = [
     async (req: Request, res: Response, next: NextFunction) => {
         try {
             const gamesData = await fetchGames(
-                ["name", "total_rating", "cover.url"],
+                [
+                    "name",
+                    "total_rating",
+                    "cover.url",
+                    "summary",
+                    "artworks.url",
+                    "franchise.name",
+                ],
                 req.sanitizedQueryParams
             );
             res.status(200).send(gamesData);
@@ -30,15 +37,17 @@ export const getGameById = async (
     next: NextFunction
 ) => {
     try {
-        console.log(req.params.id);
         const gameData = await fetchGameById(req.params.id, [
             "name",
             "summary",
             "storyline",
-            "total_rating_count",
+            "total_rating",
             "alternative_names.name",
             "artworks.url",
             "dlcs.name",
+            "dlcs.summary",
+            "dlcs.total_rating",
+            "dlcs.artworks.url",
             "first_release_date",
             "franchise.name",
             "game_engines.name",
@@ -48,6 +57,7 @@ export const getGameById = async (
             "involved_companies.company.name",
             "involved_companies.company.description",
             "involved_companies.company.logo",
+            "involved_companies.company.logo.url",
             "involved_companies.company.start_date",
             "involved_companies.company.websites.url",
             "websites.url",
