@@ -27,7 +27,15 @@ export const getGeneralGenresData = [
             );
             const gamesData = await fetchGamesByGenreIDs(
                 genreIdArr,
-                ["name", "summary", "cover.url"],
+                [
+                    "name",
+                    "genres",
+                    "total_rating",
+                    "cover.url",
+                    "summary",
+                    "artworks.url",
+                    "franchise.name",
+                ],
                 {
                     limit: "500",
                     sort: "total_rating",
@@ -46,18 +54,17 @@ export const getGeneralGenresData = [
                 const gameData = gamesData[i];
 
                 // see if current game being iterated over is part of genre that hasn't had game details added to array
-                const genreData: { id: number } | undefined =
-                    gameData.genres.find((genre: { id: number }) =>
+                const genreId: number | undefined = gameData.genres.find(
+                    (genreId: number) =>
                         genresDataSendable.find(
                             (genreData) =>
-                                genreData.id == genre.id &&
+                                genreData.id == genreId &&
                                 genreData.gameDetails === undefined
                         )
-                    );
+                );
 
-                // if genreData exists, then the genre hasn't had game data added yet
-                if (genreData) {
-                    const genreId = genreData?.id;
+                // if genreId exists, then the genre hasn't had game data added yet
+                if (genreId) {
                     const genreIndexInArray = genresDataSendable.findIndex(
                         (genreData) => genreData.id == genreId
                     );
@@ -108,7 +115,14 @@ export const getGenreDataById = async (
         );
         const gamesInGenreData = await fetchGamesByGenreIDs(
             [parseInt(genreId)],
-            ["name", "summary", "cover.url"],
+            [
+                "name",
+                "total_rating",
+                "cover.url",
+                "summary",
+                "artworks.url",
+                "franchise.name",
+            ],
             {
                 limit: "10",
                 sort: "total_rating",
