@@ -6,12 +6,13 @@ import {
 } from "./middleware.js";
 import { GenreModel } from "../models/genreModel.js";
 import { AppError, createServerError } from "../utils/errors.js";
+import { genresSanitizedQueryParams } from "../utils/types.js";
 
 const genreModel = new GenreModel();
 const fetchGenres = genreModel.fetchGenres;
 const fetchGamesByGenreIDs = genreModel.fetchGamesByGenreIDs;
 const fetchGenreById = genreModel.fetchGenreById;
-const fetchCompaniesByGenreId = genreModel.fetchCompaniesByGenreId;
+const fetchGameDevelopersByGenreId = genreModel.fetchGameDevelopersByGenreId;
 
 export const getGeneralGenresData = [
     validateQueryParams,
@@ -19,7 +20,10 @@ export const getGeneralGenresData = [
     async (req: Request, res: Response, next: NextFunction) => {
         try {
             const genresData: { id: number; name: string }[] =
-                await fetchGenres(req.sanitizedQueryParams, ["id", "name"]);
+                await fetchGenres(
+                    req.sanitizedQueryParams as genresSanitizedQueryParams,
+                    ["id", "name"]
+                );
 
             const genreIdArr = Array.from(
                 genresData,
@@ -123,24 +127,18 @@ export const getGenreDataById = async (
             }
         );
 
-        // get data of companies in genre
-        const companiesInGenreData = await fetchCompaniesByGenreId(
+        // get data of developers in genre
+        const gameDevsInGenreData = await fetchGameDevelopersByGenreId(
             genreId,
-            [
-                "involved_companies.developer",
-                "involved_companies.publisher",
-                "involved_companies.company.name",
-                "involved_companies.company.description",
-                "involved_companies.company.logo.url",
-            ],
+            ["name", "description", "developed", "logo.url"],
             { direction: "asc", limit: "10", page: "1" }
         );
 
-        // send data of genre, games in genre and companies in genre
+        // send data of genre, games in genre and developers in genre
         res.status(200).send({
             genre: genreData,
             gamesInGenre: gamesInGenreData,
-            companiesInGenre: companiesInGenreData,
+            developersInGenre: gameDevsInGenreData,
         });
     } catch (err) {
         // error is likely propagated up the callstack
@@ -150,13 +148,14 @@ export const getGenreDataById = async (
 
 export const getGamesByGenre = [
     validateQueryParams,
+    sanitizeGenresQueryParams,
     async (req: Request, res: Response, next: NextFunction) => {
         try {
             const gamesData = await fetchGamesByGenreIDs(
                 [parseInt(req.params.id)],
                 [
                     "name",
-                    "genres",
+                    "genres.name",
                     "total_rating",
                     "cover.url",
                     "summary",
@@ -167,6 +166,31 @@ export const getGamesByGenre = [
             );
 
             res.status(200).send(gamesData);
+        } catch (err) {
+            // error is likely propagated up the callstack
+            return next(err);
+        }
+    },
+];
+
+export const getDevelopersByGenre = [
+    validateQueryParams,
+    sanitizeGenresQueryParams,
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const developersData = await fetchGameDevelopersByGenreId(
+                req.params.id,
+                [
+                    "name",
+                    "description",
+                    "logo.url",
+                    "developed.name",
+                    "developed.artworks.url",
+                ],
+                req.sanitizedQueryParams as genresSanitizedQueryParams
+            );
+
+            res.status(200).send(developersData);
         } catch (err) {
             // error is likely propagated up the callstack
             return next(err);
