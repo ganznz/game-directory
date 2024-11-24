@@ -25,9 +25,7 @@ export class GenreModel {
 
             return genresRes.data;
         } catch (err) {
-            throw createBadRequestError(
-                "Invalid filter options specified for fetching genres"
-            );
+            throw createBadRequestError("Unable to fetch genre data");
         }
     };
 
@@ -50,7 +48,7 @@ export class GenreModel {
             return gamesRes.data;
         } catch (err) {
             throw createBadRequestError(
-                "Unable to fetch games with specified genre IDs"
+                "Unable to fetch games with specified genre ID(s)"
             );
         }
     };

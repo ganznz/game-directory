@@ -101,18 +101,10 @@ export const getGenreDataById = async (
 ) => {
     try {
         const genreId = req.params.id;
+        // get genre data
         const genreData = await fetchGenreById(genreId, ["id", "name"]);
-        const companiesInGenreData = await fetchCompaniesByGenreId(
-            genreId,
-            [
-                "involved_companies.developer",
-                "involved_companies.publisher",
-                "involved_companies.company.name",
-                "involved_companies.company.description",
-                "involved_companies.company.logo.url",
-            ],
-            { direction: "asc", limit: "10", page: "1" }
-        );
+
+        // get data of games in genre
         const gamesInGenreData = await fetchGamesByGenreIDs(
             [parseInt(genreId)],
             [
@@ -131,13 +123,53 @@ export const getGenreDataById = async (
             }
         );
 
+        // get data of companies in genre
+        const companiesInGenreData = await fetchCompaniesByGenreId(
+            genreId,
+            [
+                "involved_companies.developer",
+                "involved_companies.publisher",
+                "involved_companies.company.name",
+                "involved_companies.company.description",
+                "involved_companies.company.logo.url",
+            ],
+            { direction: "asc", limit: "10", page: "1" }
+        );
+
+        // send data of genre, games in genre and companies in genre
         res.status(200).send({
             genre: genreData,
             gamesInGenre: gamesInGenreData,
             companiesInGenre: companiesInGenreData,
         });
     } catch (err) {
-        // error is likely propagated up the callstack from fetchGenreById method
+        // error is likely propagated up the callstack
         return next(err);
     }
 };
+
+export const getGamesByGenre = [
+    validateQueryParams,
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const gamesData = await fetchGamesByGenreIDs(
+                [parseInt(req.params.id)],
+                [
+                    "name",
+                    "genres",
+                    "total_rating",
+                    "cover.url",
+                    "summary",
+                    "artworks.url",
+                    "franchise.name",
+                ],
+                req.sanitizedQueryParams
+            );
+
+            res.status(200).send(gamesData);
+        } catch (err) {
+            // error is likely propagated up the callstack
+            return next(err);
+        }
+    },
+];
