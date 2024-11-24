@@ -75,6 +75,7 @@ export const errorHandler = (
     res: Response,
     _next: NextFunction
 ) => {
+    console.error(err);
     // handle custom errors
     if (err instanceof AppError) {
         return res.status(err.statusCode).json({
