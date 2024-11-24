@@ -68,10 +68,3 @@ export const getGameById = async (
         return next(err);
     }
 };
-
-export const getGamesByGenre = [
-    validateQueryParams,
-    async (req: Request, res: Response, next: NextFunction) => {
-        console.log("get games by genre");
-    },
-];
