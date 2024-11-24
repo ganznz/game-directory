@@ -1,24 +1,24 @@
 import { Request, Response, NextFunction } from "express";
 import { validateQueryParams } from "./middleware.js";
 
-export const getCompanies = [
+export const getDevelopers = [
     validateQueryParams,
     async (req: Request, res: Response, next: NextFunction) => {
-        console.log("get companies");
+        console.log("get developers");
     },
 ];
 
-export const getCompanyById = async (
+export const getDeveloperById = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    console.log("get company by id");
+    console.log("get developer by id");
 };
 
-export const getGamesByCompany = [
+export const getGamesByDeveloper = [
     validateQueryParams,
     async (req: Request, res: Response, next: NextFunction) => {
-        console.log("get games by company");
+        console.log("get games by developer");
     },
 ];

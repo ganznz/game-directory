@@ -67,7 +67,7 @@ export class GenreModel {
         }
     };
 
-    fetchCompaniesByGenreId = async (
+    fetchGameDevelopersByGenreId = async (
         id: string,
         fields: string[],
         opts: genresSanitizedQueryParams
@@ -75,10 +75,11 @@ export class GenreModel {
         try {
             const reqBody = `
                 fields ${fields.join(",")};
-                where genres != null & genres.id = (${id}) & involved_companies.company.logo.url != null;
+                where developed.genres = (${id}) & logo.url != null;
+                sort ${opts.sort} ${opts.direction};
                 limit ${opts.limit};
             `;
-            const res = await igdbApiClient.post("/games", reqBody);
+            const res = await igdbApiClient.post("/developers", reqBody);
 
             return res.data;
         } catch (err) {

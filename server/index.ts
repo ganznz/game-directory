@@ -7,7 +7,7 @@ import { Response, Request } from "express";
 import { homeRouter } from "./routes/homeRouter.js";
 import { gameRouter } from "./routes/gameRouter.js";
 import { genreRouter } from "./routes/genreRouter.js";
-import { companyRouter } from "./routes/companyRouter.js";
+import { developerRouter } from "./routes/developerRouter.js";
 import { errorHandler } from "./controllers/middleware.js";
 
 const PORT = 8080;
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/home", homeRouter);
 app.use("/api/games", gameRouter);
 app.use("/api/genres", genreRouter);
-app.use("/api/companies", companyRouter);
+app.use("/api/developers", developerRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
