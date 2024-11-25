@@ -11,3 +11,6 @@ export interface genresSanitizedQueryParams {
     limit: string;
     page: string;
 }
+
+export interface developersSanitizedQueryParams
+    extends genresSanitizedQueryParams {}
