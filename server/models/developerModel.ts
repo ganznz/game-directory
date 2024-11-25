@@ -9,21 +9,35 @@ export class DeveloperModel {
         opts: developersSanitizedQueryParams
     ) => {
         try {
-            const developersReqBody = `
+            const reqBody = `
                 fields ${fields.join(",")};
                 where developed != null & logo.url != null;
                 sort ${opts.sort} ${opts.direction};
                 limit ${opts.limit};
                 offset ${(parseInt(opts.page) - 1) * parseInt(opts.limit)};
             `;
-            const developersRes = await igdbApiClient.post(
-                "/companies",
-                developersReqBody
-            );
+            const res = await igdbApiClient.post("/companies", reqBody);
 
-            return developersRes.data;
+            return res.data;
         } catch (err) {
             throw createBadRequestError("Unable to fetch developer data");
+        }
+    };
+
+    fetchDeveloperByIDs = async (companyIds: string[], fields: string[]) => {
+        try {
+            const reqBody = `
+                fields ${fields.join(",")};
+                where developed != null & logo.url != null;
+                where id = (${companyIds.join(",")});
+            `;
+            const res = await igdbApiClient.post("/companies", reqBody);
+
+            return res.data;
+        } catch (err) {
+            throw createBadRequestError(
+                "Unable to fetch developers with specified ID(s)"
+            );
         }
     };
 }

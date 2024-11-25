@@ -8,6 +8,7 @@ import { DeveloperModel } from "../models/developerModel.js";
 
 const developerModel = new DeveloperModel();
 const fetchDevelopers = developerModel.fetchDevelopers;
+const fetchDeveloperByIDs = developerModel.fetchDeveloperByIDs;
 
 export const getDevelopers = [
     validateQueryParams,
@@ -37,12 +38,24 @@ export const getDeveloperById = async (
     res: Response,
     next: NextFunction
 ) => {
-    console.log("get developer by id");
-};
+    try {
+        const developerData = await fetchDeveloperByIDs(
+            [req.params.id],
+            [
+                "name",
+                "description",
+                "country",
+                "logo.url",
+                "developed.name",
+                "developed.summary",
+                "developed.cover.url",
+                "websites.category",
+                "websites.url",
+            ]
+        );
 
-export const getGamesByDeveloper = [
-    validateQueryParams,
-    async (req: Request, res: Response, next: NextFunction) => {
-        console.log("get games by developer");
-    },
-];
+        res.status(200).send(developerData);
+    } catch (err) {
+        return next(err);
+    }
+};
