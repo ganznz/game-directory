@@ -1,5 +1,8 @@
 import { createBadRequestError } from "../utils/errors.js";
-import { developersSanitizedQueryParams } from "../utils/types.js";
+import {
+    developersSanitizedQueryParams,
+    gamesSanitizedQueryParams,
+} from "../utils/types.js";
 import { igdbApiClient } from "../services/igdb.js";
 
 export class DeveloperModel {
@@ -37,6 +40,30 @@ export class DeveloperModel {
         } catch (err) {
             throw createBadRequestError(
                 "Unable to fetch developers with specified ID(s)"
+            );
+        }
+    };
+
+    fetchGamesByDeveloperIDs = async (
+        companyIds: string[],
+        fields: string[],
+        opts: gamesSanitizedQueryParams
+    ) => {
+        try {
+            const reqBody = `
+                fields ${fields.join(",")};
+                where involved_companies.company = (${companyIds.join(
+                    ","
+                )}) & cover.url != null;
+                sort ${opts.sort} ${opts.direction};
+                limit ${opts.limit};
+            `;
+            const res = await igdbApiClient.post("/games", reqBody);
+
+            return res.data;
+        } catch (err) {
+            throw createBadRequestError(
+                "Unable to fetch games by specified developer ID(s)"
             );
         }
     };
