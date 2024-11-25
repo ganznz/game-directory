@@ -66,6 +66,8 @@ export const sanitizeGenresQueryParams = (
     next();
 };
 
+export const sanitizeDevelopersQueryParams = sanitizeGenresQueryParams;
+
 /*
     error handling middleware
 */
