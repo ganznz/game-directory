@@ -10,6 +10,9 @@
         "sourceMap": true,
         "outDir": "./dist",
         "typeRoots": ["./node_modules/@types", "./server/@types"], // not necessary but good to have
+        "noEmit": true,
+        "allowImportingTsExtensions": true
     },
     "include": ["*/**/*"],
+    "exclude": ["node_modules", "dist"]
 }
