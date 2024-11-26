@@ -1,5 +1,9 @@
 export interface gamesSanitizedQueryParams {
-    sort?: "name" | "first_release_date" | "total_rating";
+    sort?:
+        | "name"
+        | "first_release_date"
+        | "total_rating"
+        | "total_rating_count";
     direction: "asc" | "desc";
     limit: string;
     page: string;

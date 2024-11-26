@@ -32,6 +32,7 @@ export const sanitizeGamesQueryParams = (
         sort:
             sort == "name" ||
             sort == "total_rating" ||
+            sort == "total_rating_count" ||
             sort == "first_release_date"
                 ? sort
                 : undefined,
@@ -66,6 +67,9 @@ export const sanitizeGenresQueryParams = (
     next();
 };
 
+/*
+ *   query parameters for /developers endpoints are the same as /genres endpoints
+ */
 export const sanitizeDevelopersQueryParams = sanitizeGenresQueryParams;
 
 /*
