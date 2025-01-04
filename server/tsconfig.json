@@ -8,7 +8,6 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "sourceMap": true,
-        "outDir": "./dist",
         "typeRoots": ["./node_modules/@types", "./server/@types"], // not necessary but good to have
     },
     "include": ["*/**/*"],
