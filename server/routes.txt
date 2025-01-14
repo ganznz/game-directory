@@ -1,0 +1,45 @@
+HOME ENDPOINT
+route parameters
+    /home (returns object with gamesData array, genresData array, developersData array)
+
+GAME ENDPOINT
+route parameters
+    /games (pagination of all types of games)
+        only include main games, no DLCs etc., `game enum`=0
+    /games/:gameId (retrieve info on specific game – a lot more comprehensive than queries that return multiple records of games)
+        also display DLCs (`game enum` field of 0 = main game)
+    /games/:genreId (**redirect to /genre/:genreId/games endpoint**)
+
+query parameters
+    /games?sort=date&direction=ascending&limit=10&page
+        -- sort (sorts by type, e.g., date, name, genre) **default=none**
+        -- direction (ascending, descending) **default=descending**
+        -- limit (how many results are displayed per pagination) **default=50**
+        -- page (the specific page number to view in the pagination) **default=1**
+    applies to:
+        -- /games
+
+GENRE ENDPOINT
+route parameters
+    /genres (pagination of all genres)
+    /genres/:genreId (retrieve info on specific genre – display genre name+desc, some publishers within this genre, some games within this genre)
+    /genres/:genreId/games
+    /genres/:genreId/developers (retrieve developers who've release games under the specified genre, excludes publishers)
+
+query parameters
+    same as game endpoint query parameters (excl. sort[date])
+    applies to:
+        -- /genre
+        -- /genre/games (redirects to `/games/:genre` where these parameters are applied anyways)
+
+DEVELOPER ENDPOINT
+    (**endpoint excludes companies listed as publishers**)
+    /developers (pagination of all developers)
+    /developers/:developersId (retrieve comprehensive info on specific developer)
+    /developers/:developersId/games (retrieve all games by a specific developer)
+
+query parameters
+    same as game endpoint query parameters (excl. sort[date])
+    applies to:
+        -- /developers
+        -- /developers/:developerId/games
