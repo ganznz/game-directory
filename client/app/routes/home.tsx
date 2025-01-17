@@ -1,12 +1,11 @@
 import type { Route } from "./+types/home";
+import { FetchFromServer } from "../utils/data-fetching";
 
-export function meta({}: Route.MetaArgs) {
-    return [
-        { title: "New React Router App" },
-        { name: "description", content: "Welcome to React Router!" },
-    ];
+export async function loader() {
+    const data = await FetchFromServer("home");
+    return { loaderData: data };
 }
 
-export default function Home() {
-    return <p>hello world</p>;
+export default function Home({ loaderData }: Route.ComponentProps) {
+    return <p>bruh</p>;
 }
