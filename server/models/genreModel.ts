@@ -79,7 +79,7 @@ export class GenreModel {
                 sort ${opts.sort} ${opts.direction};
                 limit ${opts.limit};
             `;
-            const res = await igdbApiClient.post("/developers", reqBody);
+            const res = await igdbApiClient.post("/companies", reqBody);
 
             return res.data;
         } catch (err) {
