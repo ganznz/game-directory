@@ -19,7 +19,6 @@ export const getGames = [
                     "cover.url",
                     "summary",
                     "artworks.url",
-                    "franchise.name",
                 ],
                 req.sanitizedQueryParams
             );
@@ -44,12 +43,7 @@ export const getGameById = async (
             "total_rating",
             "alternative_names.name",
             "artworks.url",
-            "dlcs.name",
-            "dlcs.summary",
-            "dlcs.total_rating",
-            "dlcs.artworks.url",
             "first_release_date",
-            "franchise.name",
             "game_engines.name",
             "genres.name",
             "involved_companies.developer",

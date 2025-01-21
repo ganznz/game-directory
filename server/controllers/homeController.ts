@@ -27,14 +27,7 @@ export const getHomeData = async (
     try {
         /* get data of top 10 most popular games */
         const mostPopularGames = await fetchGames(
-            [
-                "name",
-                "total_rating",
-                "cover.url",
-                "summary",
-                "artworks.url",
-                "franchise.name",
-            ],
+            ["name", "total_rating", "cover.url", "summary", "artworks.url"],
             {
                 sort: "total_rating_count",
                 direction: "desc",
@@ -66,7 +59,6 @@ export const getHomeData = async (
                 "cover.url",
                 "summary",
                 "artworks.url",
-                "franchise.name",
             ],
             {
                 limit: "500",

@@ -79,7 +79,6 @@ export const getGamesByDeveloper = [
                     "cover.url",
                     "summary",
                     "artworks.url",
-                    "franchise.name",
                 ],
                 req.sanitizedQueryParams as gamesSanitizedQueryParams
             );

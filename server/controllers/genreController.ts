@@ -38,7 +38,6 @@ export const getGeneralGenresData = [
                     "cover.url",
                     "summary",
                     "artworks.url",
-                    "franchise.name",
                 ],
                 {
                     limit: "500",
@@ -117,7 +116,6 @@ export const getGenreDataById = async (
                 "cover.url",
                 "summary",
                 "artworks.url",
-                "franchise.name",
             ],
             {
                 limit: "10",
@@ -130,7 +128,7 @@ export const getGenreDataById = async (
         // get data of developers in genre
         const gameDevsInGenreData = await fetchGameDevelopersByGenreId(
             genreId,
-            ["name", "description", "developed", "logo.url"],
+            ["name", "description", "logo.url"],
             { direction: "asc", limit: "10", page: "1" }
         );
 
@@ -160,7 +158,6 @@ export const getGamesByGenre = [
                     "cover.url",
                     "summary",
                     "artworks.url",
-                    "franchise.name",
                 ],
                 req.sanitizedQueryParams
             );
