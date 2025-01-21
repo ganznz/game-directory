@@ -6,12 +6,14 @@ import { z } from "zod";
  */
 const gamesSchema = z.object({
     id: z.number(),
-    artworks: z.array(
-        z.object({
-            id: z.number(),
-            url: z.string(),
-        })
-    ),
+    artworks: z
+        .array(
+            z.object({
+                id: z.number(),
+                url: z.string(),
+            })
+        )
+        .optional(),
     cover: z.object({
         id: z.number(),
         url: z.string(),

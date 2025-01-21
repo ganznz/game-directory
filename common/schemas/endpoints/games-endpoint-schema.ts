@@ -61,7 +61,7 @@ export const getGamesEndpointSchema = z.array(
         cover: z.object({
             id: z.number(),
             url: z.string(),
-        }),
+        }).optional(),
         name: z.string(),
         summary: z.string().optional(),
         total_rating: z.number(),
