@@ -27,3 +27,7 @@ dist-ssr
 # React Router
 .react-router/
 /build/
+
+# Storybook
+*storybook.log
+storybook-static
