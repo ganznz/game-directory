@@ -1,12 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html,
-body {
-    @apply bg-white dark:bg-gray-950 text-black;
-
-    @media (prefers-color-scheme: dark) {
-        color-scheme: dark;
-    }
-}
+@import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";

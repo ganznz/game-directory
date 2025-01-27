@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+    important: true,
     darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    content: ["./app/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
             borderRadius: {
@@ -13,5 +14,8 @@ export default {
         }
     },
     plugins: [require("tailwindcss-animate")],
+    corePlugins: {
+        preflight: false,
+    },
 }
 
