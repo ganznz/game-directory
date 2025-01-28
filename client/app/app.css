@@ -14,3 +14,21 @@
     --color-dark-text: #ffffff;
     --color-dark-accent: #2b7a5d;
 }
+
+body {
+    @apply bg-light-bg text-light-text;
+}
+
+[data-theme="dark"] {
+    body {
+        @apply bg-dark-bg text-dark-text;
+    }
+}
+
+div {
+    @apply bg-light-bg;
+}
+
+[data-theme="dark"] div {
+    @apply bg-dark-bg;
+}
