@@ -8,7 +8,9 @@
   ],
   "scripts": {
     "dev-server": "nodemon index.ts",
-    "dev-client": "npm run dev --prefix client"
+    "dev-client": "npm run dev --prefix client",
+    "storybook": "npm run storybook --prefix client",
+    "build-storybook": "npm run build-storybook --prefix client"
   },
   "keywords": [],
   "author": "",
