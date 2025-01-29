@@ -2,6 +2,7 @@ import React from "react";
 
 import type { Preview } from "@storybook/react";
 import "../app/app.css";
+import "./storybook.css";
 
 import { ThemeProvider } from "../app/utils/theme-provider";
 
