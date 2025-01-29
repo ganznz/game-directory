@@ -2,6 +2,7 @@ import {
     isRouteErrorResponse,
     Links,
     Meta,
+    NavLink,
     Outlet,
     Scripts,
     ScrollRestoration,
@@ -10,7 +11,8 @@ import {
 import type { Route } from "./+types/root";
 
 import stylesheet from "./app.css?url";
-import { NavBar } from "./components/composite/navbar";
+
+import { NavBar } from "./components/generic/navbar/navbar";
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -19,12 +21,16 @@ export const links: Route.LinksFunction = () => [
         href: "https://fonts.gstatic.com",
         crossOrigin: "anonymous",
     },
+    {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    },
     { rel: "stylesheet", href: stylesheet },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" data-theme="light">
+        <html lang="en" data-theme="dark">
             <head>
                 <meta charSet="utf-8" />
                 <meta
@@ -46,8 +52,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
     return (
         <>
-            <NavBar />
-            <Outlet />
+            <NavBar>
+                <NavLink to="games">Games</NavLink>
+                <NavLink to="genres">Genres</NavLink>
+                <NavLink to="developers">Developers</NavLink>
+            </NavBar>
+            <Outlet />;
         </>
     );
 }

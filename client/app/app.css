@@ -4,101 +4,106 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @theme {
     --color-light-bg: #ffffff;
-    --color-light-primary: #e0f7fa;
-    --color-light-secondary: #b2ebf2;
+    --color-light-primary: #e6e6e6;
+    --color-light-secondary: #d1d1d1;
     --color-light-text: #000000;
     --color-light-accent: #26a1ff;
-    --color-dark-bg: #121212;
-    --color-dark-primary: #1e1e1e;
-    --color-dark-secondary: #424242;
+
+    --color-dark-bg: #1e1e1e;
+    --color-dark-primary: #292929;
+    --color-dark-secondary: #363636;
     --color-dark-text: #ffffff;
     --color-dark-accent: #006aba;
 }
 
-body {
-    @apply bg-light-bg text-light-text;
-}
-
-[data-theme="dark"] {
+@layer base {
     body {
-        @apply bg-dark-bg text-dark-text;
+        height: 100vh;
+        width: 100vw;
+        @apply bg-light-primary text-light-text;
     }
-}
 
-div {
-    @apply bg-light-bg;
-}
+    [data-theme="dark"] {
+        body {
+            @apply bg-dark-bg text-dark-text;
+        }
+    }
 
-[data-theme="dark"] div {
-    @apply bg-dark-bg;
-}
+    div {
+        @apply bg-light-bg;
+    }
 
-button {
-    @apply bg-light-accent text-light-text;
-}
+    [data-theme="dark"] div {
+        @apply bg-dark-primary;
+    }
 
-[data-theme="dark"] button {
-    @apply bg-dark-accent text-dark-text;
-}
+    button {
+        @apply bg-light-accent text-light-text;
+    }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-span,
-strong,
-em,
-b,
-i,
-u,
-small,
-mark,
-del,
-ins,
-sub,
-sup,
-code,
-kbd,
-samp,
-var,
-cite,
-time,
-abbr,
-label {
-    @apply text-light-text;
-}
+    [data-theme="dark"] button {
+        @apply bg-dark-accent text-dark-text;
+    }
 
-[data-theme="dark"] p,
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6,
-[data-theme="dark"] a,
-[data-theme="dark"] span,
-[data-theme="dark"] strong,
-[data-theme="dark"] em,
-[data-theme="dark"] b,
-[data-theme="dark"] i,
-[data-theme="dark"] u,
-[data-theme="dark"] small,
-[data-theme="dark"] mark,
-[data-theme="dark"] del,
-[data-theme="dark"] ins,
-[data-theme="dark"] sub,
-[data-theme="dark"] sup,
-[data-theme="dark"] code,
-[data-theme="dark"] kbd,
-[data-theme="dark"] samp,
-[data-theme="dark"] var,
-[data-theme="dark"] cite,
-[data-theme="dark"] time,
-[data-theme="dark"] abbr,
-[data-theme="dark"] label {
-    @apply text-dark-text;
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a,
+    span,
+    strong,
+    em,
+    b,
+    i,
+    u,
+    small,
+    mark,
+    del,
+    ins,
+    sub,
+    sup,
+    code,
+    kbd,
+    samp,
+    var,
+    cite,
+    time,
+    abbr,
+    label {
+        @apply text-light-text;
+    }
+
+    [data-theme="dark"] p,
+    [data-theme="dark"] h1,
+    [data-theme="dark"] h2,
+    [data-theme="dark"] h3,
+    [data-theme="dark"] h4,
+    [data-theme="dark"] h5,
+    [data-theme="dark"] h6,
+    [data-theme="dark"] a,
+    [data-theme="dark"] span,
+    [data-theme="dark"] strong,
+    [data-theme="dark"] em,
+    [data-theme="dark"] b,
+    [data-theme="dark"] i,
+    [data-theme="dark"] u,
+    [data-theme="dark"] small,
+    [data-theme="dark"] mark,
+    [data-theme="dark"] del,
+    [data-theme="dark"] ins,
+    [data-theme="dark"] sub,
+    [data-theme="dark"] sup,
+    [data-theme="dark"] code,
+    [data-theme="dark"] kbd,
+    [data-theme="dark"] samp,
+    [data-theme="dark"] var,
+    [data-theme="dark"] cite,
+    [data-theme="dark"] time,
+    [data-theme="dark"] abbr,
+    [data-theme="dark"] label {
+        @apply text-dark-text;
+    }
 }

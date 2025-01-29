@@ -1,15 +1,18 @@
 import path from "path";
-import { defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react";
 import { reactRouter } from "@react-router/dev/vite";
-import autoprefixer from "autoprefixer";
+import { defineConfig, loadEnv } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import autoprefixer from "autoprefixer";
 
 const env = loadEnv("all", process.cwd());
 
-// https://vite.dev/config/
 export default defineConfig({
-    plugins: [react(), reactRouter(), tailwindcss()],
+    plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+    build: {
+        cssMinify: true,
+        ssr: false,
+    },
     css: {
         postcss: {
             plugins: [autoprefixer],

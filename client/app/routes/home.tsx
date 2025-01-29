@@ -1,11 +1,12 @@
+import { fetchFromServer } from "~/utils/data-fetching";
 import type { Route } from "./+types/home";
-// import { FetchFromServer } from "../utils/data-fetching";
 
-// export async function loader() {
-//     const data = await FetchFromServer("home");
-//     return { loaderData: data };
-// }
+export async function clientLoader() {
+    const data = await fetchFromServer("/home");
+    return { loaderData: data };
+}
 
 export default function Home({ loaderData }: Route.ComponentProps) {
+    console.log(loaderData);
     return <p>bruh</p>;
 }
