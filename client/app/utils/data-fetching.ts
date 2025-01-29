@@ -24,7 +24,7 @@ interface fetchFromServerOptions {
 export const fetchFromServer = async <T>(
     path: string,
     opts?: fetchFromServerOptions
-) => {
+): Promise<T> => {
     const env = import.meta.env;
     const apiUrl = env.DEV ? env.VITE_API_URL_DEV : env.VITE_API_URL_PROD;
 
