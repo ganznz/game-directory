@@ -11,10 +11,11 @@ import {
 import type { Route } from "./+types/root";
 
 import stylesheet from "./app.css?url";
+import "primeicons/primeicons.css";
 
-import { NavBar } from "./components/generic/navbar/navbar";
+import { NavBar } from "./components/composite/navbar/navbar";
 
-export const links: Route.LinksFunction = () => [
+export const links = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     {
         rel: "preconnect",
@@ -30,7 +31,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" data-theme="dark">
+        <html lang="en" data-theme="light">
             <head>
                 <meta charSet="utf-8" />
                 <meta
@@ -53,11 +54,16 @@ export default function App() {
     return (
         <>
             <NavBar>
-                <NavLink to="games">Games</NavLink>
+                <NavLink to="/" className="font-bold md:p-3 md:mr-5">
+                    ULTIMATE GAMES DIRECTORY
+                </NavLink>
+                <NavLink to="games" className="w-full">
+                    Games
+                </NavLink>
                 <NavLink to="genres">Genres</NavLink>
                 <NavLink to="developers">Developers</NavLink>
             </NavBar>
-            <Outlet />;
+            <Outlet />
         </>
     );
 }
