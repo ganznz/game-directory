@@ -57,9 +57,7 @@ export default function App() {
                 <NavLink to="/" className="font-bold md:p-3 md:mr-5">
                     ULTIMATE GAMES DIRECTORY
                 </NavLink>
-                <NavLink to="games" className="w-full">
-                    Games
-                </NavLink>
+                <NavLink to="games">Games</NavLink>
                 <NavLink to="genres">Genres</NavLink>
                 <NavLink to="developers">Developers</NavLink>
             </NavBar>
