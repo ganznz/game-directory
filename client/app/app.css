@@ -13,10 +13,17 @@
     --color-dark-primary: #292929;
     --color-dark-secondary: #363636;
     --color-dark-text: #ffffff;
-    --color-dark-accent: #006aba;
+    --color-dark-accent: #e1c16e;
 }
 
 @layer base {
+    [data-theme="light"],
+    [data-theme="dark"] {
+        body * {
+            transition: background-color 0.2s, color 0.2s;
+        }
+    }
+
     body {
         height: 100vh;
         width: 100vw;
