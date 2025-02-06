@@ -54,12 +54,52 @@ export default function App() {
     return (
         <>
             <NavBar>
-                <NavLink to="/" className="font-bold md:p-3 md:mr-5">
+                <NavLink
+                    to="/"
+                    viewTransition
+                    className="font-bold md:p-3 md:mr-5"
+                >
                     ULTIMATE GAMES DIRECTORY
                 </NavLink>
-                <NavLink to="games">Games</NavLink>
-                <NavLink to="genres">Genres</NavLink>
-                <NavLink to="developers">Developers</NavLink>
+                <NavLink
+                    to="games"
+                    viewTransition
+                    style={({ isActive }) => {
+                        return {
+                            fontWeight: isActive ? "bold" : "normal",
+                            transform: isActive ? "translateY(-2px)" : "none",
+                            transition: "all 0.1s",
+                        };
+                    }}
+                >
+                    Games
+                </NavLink>
+                <NavLink
+                    to="genres"
+                    viewTransition
+                    style={({ isActive }) => {
+                        return {
+                            fontWeight: isActive ? "bold" : "normal",
+                            transform: isActive ? "translateY(-2px)" : "none",
+                            transition: "all 0.1s",
+                        };
+                    }}
+                >
+                    Genres
+                </NavLink>
+                <NavLink
+                    to="developers"
+                    viewTransition
+                    style={({ isActive }) => {
+                        return {
+                            fontWeight: isActive ? "bold" : "normal",
+                            transform: isActive ? "translateY(-2px)" : "none",
+                            transition: "all 0.1s",
+                        };
+                    }}
+                >
+                    Developers
+                </NavLink>
             </NavBar>
             <Outlet />
         </>
