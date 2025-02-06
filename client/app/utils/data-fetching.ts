@@ -20,6 +20,7 @@ interface fetchFromServerOptions {
  * @example
  * // Basic usage
  * const data = await fetchFromServer<UserData>('/users/123');
+ * const dataValidated = await fetchFromServer<UserData>('/users/123', { parseDataWith: userSchema });
  */
 export const fetchFromServer = async <T>(
     path: string,
