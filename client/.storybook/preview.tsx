@@ -21,12 +21,13 @@ const preview: Preview = {
                 dark: "dark",
             },
         },
+        deepControls: { enabled: true },
     },
 
     argTypes: {
         // control to change 'theme' parameter
         theme: {
-            control: { type: "radio" },
+            control: "radio",
             options: ["light", "dark"],
         },
     },

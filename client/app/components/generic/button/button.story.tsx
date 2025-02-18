@@ -9,7 +9,7 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const GenericButton: Story = {
-    args: {
-        text: "Rahh",
+    render: (args) => {
+        return <Button {...args}>Click me</Button>;
     },
 };
