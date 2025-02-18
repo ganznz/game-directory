@@ -1,6 +1,7 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 
-import type { Preview } from "@storybook/react";
+import { type Preview } from "@storybook/react";
 import "../app/app.css";
 import "./storybook.css";
 import "primeicons/primeicons.css";
@@ -37,7 +38,9 @@ const preview: Preview = {
             const theme = context.args.theme || "dark";
             return (
                 <ThemeProvider theme={theme}>
-                    <Story />
+                    <MemoryRouter>
+                        <Story />
+                    </MemoryRouter>
                 </ThemeProvider>
             );
         },
