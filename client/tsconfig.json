@@ -15,7 +15,8 @@
     "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+        "~/*": ["../*"], /* root dir */
+        "@/*": ["./app/*"] /* ``/client/app`` dir */
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
