@@ -28,7 +28,8 @@ interface IDisplayCard {
     data: gameData | genreData | developerData;
     opts?: {
         expandedBacksplash?: boolean;
-        expandedBacksplashColour?: string; // hex colour
+        expandedBacksplashColourLight?: string; // hex colour
+        expandedBacksplashColourDark?: string; // hex colour
     };
 }
 
@@ -152,11 +153,16 @@ export const DisplayCard = ({ data, opts }: IDisplayCard) => {
                         </p>
                     )}
 
-                    <NavLink to="/" className="width-full mt-2">
+                    <NavLink
+                        to="/"
+                        className={`width-full mt-2 h-5 ${
+                            expandedCard ? "h-auto" : ""
+                        }`}
+                    >
                         <Button
-                            className={`w-full h-full bg-blue-300 hover:bg-blue-300 text-black dark:bg-green-300 dark:hover:bg-green-300 dark:text-green-950 font-bold ${
+                            className={`w-full h-full rounded-none bg-blue-300 hover:bg-blue-300 text-black dark:bg-green-300 dark:hover:bg-green-300 dark:text-green-950 font-bold ${
                                 expandedCard
-                                    ? "py-2 bg-blue-400 dark:bg-green-400"
+                                    ? "py-2 rounded-md bg-blue-400 dark:bg-green-400"
                                     : ""
                             } transitional-all duration-300 ease-in-out`}
                         >
@@ -170,8 +176,8 @@ export const DisplayCard = ({ data, opts }: IDisplayCard) => {
             {opts?.expandedBacksplash && (
                 <div
                     className={`bg-light-accent dark:bg-dark-accent ${
-                        opts?.expandedBacksplashColour &&
-                        `bg-[${opts?.expandedBacksplashColour}]`
+                        opts?.expandedBacksplash &&
+                        `bg-[${opts?.expandedBacksplashColourLight}] dark:bg-[${opts?.expandedBacksplashColourDark}]`
                     } absolute top-0 left-0 h-screen w-screen z-99 pointer-events-none opacity-0 ${
                         expandedCard ? "opacity-20" : ""
                     } transition-opacity duration-300 ease-in-out`}
