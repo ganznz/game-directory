@@ -16,6 +16,8 @@ export default {
                 'dark-secondary': 'var(--color-dark-secondary)',
                 'dark-text': 'var(--color-dark-text)',
                 'dark-accent': 'var(--color-dark-accent)',
+                'light-skeleton-loading': 'var(--color-light-skeleton-loading)',
+                'dark-skeleton-loading': 'var(--color-dark-skeleton-loading)',
             },
             borderRadius: {
                 lg: 'var(--radius)',

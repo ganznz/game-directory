@@ -8,12 +8,14 @@
     --color-light-secondary: #d1d1d1;
     --color-light-text: #000000;
     --color-light-accent: #3db5ff;
+    --color-light-skeleton-loading: #d1d5dc;
 
     --color-dark-bg: #1e1e1e;
     --color-dark-primary: #292929;
     --color-dark-secondary: #363636;
     --color-dark-text: #ffffff;
     --color-dark-accent: #e1c16e;
+    --color-dark-skeleton-loading: #74777a;
 }
 
 @layer base {
