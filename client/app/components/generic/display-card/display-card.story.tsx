@@ -51,6 +51,21 @@ export const DeveloperDisplayCard: Story = {
     },
 };
 
+export const CardLoadingState: Story = {
+    args: {
+        data: {
+            name: "Grand Theft Auto V",
+            summary:
+                "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
+            totalRating: 88.82340084306142,
+            cover: {
+                url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
+            },
+        },
+        loading: true,
+    },
+};
+
 export const CardWithBackdrop: Story = {
     args: {
         data: {
@@ -89,11 +104,6 @@ export const CardInFlexDisplay: Story = {
             cover: {
                 url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
             },
-        },
-        opts: {
-            expandedBacksplash: true,
-            expandedBacksplashColourLight: "#f5f5f5",
-            expandedBacksplashColourDark: "#333",
         },
     },
 };

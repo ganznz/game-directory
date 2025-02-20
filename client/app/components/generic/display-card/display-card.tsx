@@ -26,6 +26,7 @@ interface developerData {
 
 interface IDisplayCard {
     data: gameData | genreData | developerData;
+    loading?: boolean;
     opts?: {
         expandedBacksplash?: boolean;
         expandedBacksplashColourLight?: string; // hex colour
@@ -51,7 +52,7 @@ const isDeveloperData = (
     return (data as developerData).logo !== undefined;
 };
 
-export const DisplayCard = ({ data, opts }: IDisplayCard) => {
+export const DisplayCard = ({ data, opts, loading }: IDisplayCard) => {
     const [expandedCard, setExpandedCard] = useState(false);
     const [initialHoverUsed, setInitialHoverUsed] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
@@ -99,76 +100,92 @@ export const DisplayCard = ({ data, opts }: IDisplayCard) => {
                         expandedCard ? "overflow-scroll z-100 p-5" : ""
                     } transition-all duration-300 ease-in-out transform hover:scale-105`}
                     onMouseOver={() => {
-                        console.log(initialHoverUsed);
-                        !initialHoverUsed && setExpandedCard(true);
-                        setInitialHoverUsed(true);
+                        if (!loading) {
+                            !initialHoverUsed && setExpandedCard(true);
+                            setInitialHoverUsed(true);
+                        }
                     }}
                     onMouseLeave={() => {
-                        handleMouseLeave();
+                        if (!loading) {
+                            handleMouseLeave();
+                        }
                     }}
-                    onMouseDown={() => setExpandedCard(!expandedCard)}
+                    onMouseDown={() =>
+                        !loading && setExpandedCard(!expandedCard)
+                    }
                     ref={cardRef}
                 >
-                    <img
-                        src={imageUrl}
-                        alt={`${data.name} cover artwork`}
-                        className={`h-48 overflow-hidden object-cover -z-10 opacity-80 ${
-                            expandedCard ? "rounded-md opacity-100" : ""
-                        } transition-all duration-300 ease-in-out`}
-                    />
+                    {loading ? (
+                        // Skeleton loading state
+                        <div className="p-3">
+                            <div className="h-48 bg-light-skeleton-loading dark:bg-dark-skeleton-loading animate-pulse rounded-md"></div>
+                            <h3 className="text-lg text-center mt-4 font-semibold bg-light-skeleton-loading dark:bg-dark-skeleton-loading animate-pulse h-6 w-3/4 mx-auto rounded-md"></h3>
+                            <p className="max-h-0 opacity-0 bg-light-skeleton-loading dark:bg-dark-skeleton-loading animate-pulse h-4 w-5/6 mx-auto rounded-md"></p>
+                        </div>
+                    ) : (
+                        <>
+                            <img
+                                src={imageUrl}
+                                alt={`${data.name} cover artwork`}
+                                className={`h-48 overflow-hidden object-cover -z-10 opacity-80 ${
+                                    expandedCard ? "rounded-md opacity-100" : ""
+                                } transition-all duration-300 ease-in-out`}
+                            />
 
-                    <h3
-                        className={`text-lg text-center mt-4 font-semibold z-10`}
-                    >
-                        {data.name}
-                    </h3>
+                            <h3
+                                className={`text-lg text-center mt-4 font-semibold z-10`}
+                            >
+                                {data.name}
+                            </h3>
 
-                    {isGenreData(data) && (
-                        <p
-                            className={`text-gray-600 dark:text-gray-300 italic max-h-0 opacity-0 ${
-                                expandedCard
-                                    ? "max-h-40 opacity-100 mt-4"
-                                    : "overflow-hidden"
-                            } transition-all duration-300 ease-in-out`}
-                        >
-                            <span className="font-bold text-blue-500 dark:text-green-400">
-                                {data.gameDetails.name}
-                            </span>
-                            {` features in this genre.`}
-                        </p>
+                            {isGenreData(data) && (
+                                <p
+                                    className={`text-gray-600 dark:text-gray-300 italic max-h-0 opacity-0 ${
+                                        expandedCard
+                                            ? "max-h-40 opacity-100 mt-4"
+                                            : "overflow-hidden"
+                                    } transition-all duration-300 ease-in-out`}
+                                >
+                                    <span className="font-bold text-blue-500 dark:text-green-400">
+                                        {data.gameDetails.name}
+                                    </span>
+                                    {` features in this genre.`}
+                                </p>
+                            )}
+
+                            {/* summary text visible only when card expanded */}
+                            {summaryText && (
+                                <p
+                                    className={`text-gray-600 dark:text-gray-300 italic max-h-0 opacity-0 ${
+                                        expandedCard
+                                            ? "max-h-40 opacity-100"
+                                            : "overflow-hidden"
+                                    } transition-all duration-300 ease-in-out ${
+                                        isGenreData(data) ? "mt-2" : "mt-4"
+                                    }`}
+                                >
+                                    {summaryText}
+                                </p>
+                            )}
+
+                            <NavLink
+                                to="/"
+                                className={`width-full mt-2 h-5 ${
+                                    expandedCard ? "h-auto" : ""
+                                }`}
+                            >
+                                <Button
+                                    className={`w-full h-full rounded-none bg-blue-300 hover:bg-blue-300 text-black dark:bg-green-300 dark:hover:bg-green-300 dark:text-green-950 font-bold ${
+                                        expandedCard
+                                            ? "py-2 rounded-md bg-blue-400 dark:bg-green-400"
+                                            : ""
+                                    } transitional-all duration-300 ease-in-out`}
+                                >
+                                    {`${expandedCard ? "View details" : ""}`}
+                                </Button>
+                            </NavLink>
+                        </>
                     )}
-
-                    {/* summary text visible only when card expanded */}
-                    {summaryText && (
-                        <p
-                            className={`text-gray-600 dark:text-gray-300 italic max-h-0 opacity-0 ${
-                                expandedCard
-                                    ? "max-h-40 opacity-100"
-                                    : "overflow-hidden"
-                            } transition-all duration-300 ease-in-out ${
-                                isGenreData(data) ? "mt-2" : "mt-4"
-                            }`}
-                        >
-                            {summaryText}
-                        </p>
-                    )}
-
-                    <NavLink
-                        to="/"
-                        className={`width-full mt-2 h-5 ${
-                            expandedCard ? "h-auto" : ""
-                        }`}
-                    >
-                        <Button
-                            className={`w-full h-full rounded-none bg-blue-300 hover:bg-blue-300 text-black dark:bg-green-300 dark:hover:bg-green-300 dark:text-green-950 font-bold ${
-                                expandedCard
-                                    ? "py-2 rounded-md bg-blue-400 dark:bg-green-400"
-                                    : ""
-                            } transitional-all duration-300 ease-in-out`}
-                        >
-                            {`${expandedCard ? "View details" : ""}`}
-                        </Button>
-                    </NavLink>
                 </div>
             </div>
 
