@@ -1,0 +1,5 @@
+{
+    "tailwindStylesheet": "./app/app.css",
+    "tailwindPreserveWhitespace": true,
+    "plugins": ["prettier-plugin-tailwindcss"]
+}
