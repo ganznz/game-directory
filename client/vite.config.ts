@@ -8,27 +8,30 @@ import autoprefixer from "autoprefixer";
 const env = loadEnv("all", process.cwd());
 
 export default defineConfig({
-    plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
-    build: {
-        cssMinify: true,
-        ssr: false,
+  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  optimizeDeps: {
+    exclude: ["tailwind-merge"],
+  },
+  build: {
+    cssMinify: true,
+    ssr: false,
+  },
+  css: {
+    postcss: {
+      plugins: [autoprefixer],
     },
-    css: {
-        postcss: {
-            plugins: [autoprefixer],
-        },
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: env.DEV ? env.VITE_API_URL_DEV : env.VITE_API_URL_PROD,
+        changeOrigin: true,
+      },
     },
-    server: {
-        proxy: {
-            "/api": {
-                target: env.DEV ? env.VITE_API_URL_DEV : env.VITE_API_URL_PROD,
-                changeOrigin: true,
-            },
-        },
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./app"),
     },
-    resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "./app"),
-        },
-    },
+  },
 });
