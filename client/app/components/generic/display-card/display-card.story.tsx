@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DisplayCard } from "./display-card";
 
 const meta: Meta<typeof DisplayCard> = {
-    component: DisplayCard,
+  component: DisplayCard,
 };
 
 export default meta;
@@ -10,100 +10,100 @@ export default meta;
 type Story = StoryObj<typeof DisplayCard>;
 
 export const GameDisplayCard: Story = {
-    args: {
-        data: {
-            name: "Grand Theft Auto V",
-            summary:
-                "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
-            totalRating: 88.82340084306142,
-            cover: {
-                url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
-            },
-        },
+  args: {
+    data: {
+      name: "Grand Theft Auto V",
+      summary:
+        "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
+      totalRating: 88.82340084306142,
+      cover: {
+        url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
+      },
     },
+  },
 };
 
 export const GenreDisplayCard: Story = {
-    args: {
-        data: {
-            name: "Action",
-            gameDetails: {
-                name: "Grand Theft Auto V",
-                cover: {
-                    url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
-                },
-                summary:
-                    "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
-                totalRating: 88.82340084306142,
-            },
+  args: {
+    data: {
+      name: "Action",
+      gameDetails: {
+        name: "Grand Theft Auto V",
+        cover: {
+          url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
         },
+        summary:
+          "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
+        totalRating: 88.82340084306142,
+      },
     },
+  },
 };
 
 export const DeveloperDisplayCard: Story = {
-    args: {
-        data: {
-            name: "Rockstar Games",
-            logo: {
-                url: "//images.igdb.com/igdb/image/upload/t_1080p/cl8g0.jpg",
-            },
-        },
+  args: {
+    data: {
+      name: "Rockstar Games",
+      logo: {
+        url: "//images.igdb.com/igdb/image/upload/t_1080p/cl8g0.jpg",
+      },
     },
+  },
 };
 
 export const CardLoadingState: Story = {
-    args: {
-        data: {
-            name: "Grand Theft Auto V",
-            summary:
-                "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
-            totalRating: 88.82340084306142,
-            cover: {
-                url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
-            },
-        },
-        loading: true,
+  args: {
+    data: {
+      name: "Grand Theft Auto V",
+      summary:
+        "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
+      totalRating: 88.82340084306142,
+      cover: {
+        url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
+      },
     },
+    loading: true,
+  },
 };
 
 export const CardWithBackdrop: Story = {
-    args: {
-        data: {
-            name: "Grand Theft Auto V",
-            summary:
-                "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
-            totalRating: 88.82340084306142,
-            cover: {
-                url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
-            },
-        },
-        opts: {
-            expandedBacksplash: true,
-            expandedBacksplashColourLight: "#f5f5f5",
-            expandedBacksplashColourDark: "#333",
-        },
+  args: {
+    data: {
+      name: "Grand Theft Auto V",
+      summary:
+        "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
+      totalRating: 88.82340084306142,
+      cover: {
+        url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
+      },
     },
+    opts: {
+      expandedBacksplash: true,
+      expandedBacksplashColourLight: "bg-[#39393b]",
+      expandedBacksplashColourDark: "dark:bg-[#333333]",
+    },
+  },
 };
 
 export const CardInFlexDisplay: Story = {
-    render: (args) => {
-        return (
-            <div className="flex gap-6">
-                <DisplayCard {...args} />
-                <DisplayCard {...args} />
-                <DisplayCard {...args} />
-            </div>
-        );
+  render: (args) => {
+    return (
+      <div className="flex gap-6">
+        <DisplayCard {...args} />
+        <DisplayCard {...args} />
+        <DisplayCard {...args} />
+      </div>
+    );
+  },
+  args: {
+    data: {
+      name: "Grand Theft Auto V",
+      summary:
+        "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
+      totalRating: 88.82340084306142,
+      cover: {
+        url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
+      },
     },
-    args: {
-        data: {
-            name: "Grand Theft Auto V",
-            summary:
-                "Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.",
-            totalRating: 88.82340084306142,
-            cover: {
-                url: "//images.igdb.com/igdb/image/upload/t_1080p/co2lbd.jpg",
-            },
-        },
-    },
+  },
 };
