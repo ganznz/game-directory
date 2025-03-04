@@ -1,16 +1,14 @@
-import React, { type HTMLProps } from "react";
+import React, { type ButtonHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface IButton extends HTMLProps<HTMLButtonElement> {
-    children: React.ReactNode;
+interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
 }
 
-export const Button = ({ children, ...props }: IButton) => {
-    return (
-        <button
-            className={twMerge(`py-2 px-4 rounded`, { ...props }.className)}
-        >
-            {children}
-        </button>
-    );
+export const Button = ({ children, className, ...props }: IButton) => {
+  return (
+    <button className={twMerge(`rounded px-4 py-2`, className)} {...props}>
+      {children}
+    </button>
+  );
 };
