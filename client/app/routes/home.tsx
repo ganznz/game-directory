@@ -21,12 +21,6 @@ export async function clientLoader() {
   return { data };
 }
 
-/* <React.Suspense fallback={<div>Loading...</div>}>
-    <Await resolve={nonCriticalData}>
-        {(value) => <h3>Non critical value: {value}</h3>}
-    </Await>
-</React.Suspense>; */
-
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { data } = loaderData;
 
