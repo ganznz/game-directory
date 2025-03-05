@@ -25,6 +25,7 @@ interface developerData {
 }
 
 interface IDisplayCard {
+  viewDetailsLink?: string;
   data: gameData | genreData | developerData;
   loading?: boolean;
   opts?: {
@@ -52,7 +53,12 @@ const isDeveloperData = (
   return (data as developerData).logo !== undefined;
 };
 
-export const DisplayCard = ({ data, opts, loading }: IDisplayCard) => {
+export const DisplayCard = ({
+  viewDetailsLink,
+  data,
+  opts,
+  loading,
+}: IDisplayCard) => {
   const [expandedCard, setExpandedCard] = useState(false);
   const [initialHoverUsed, setInitialHoverUsed] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -163,22 +169,24 @@ export const DisplayCard = ({ data, opts, loading }: IDisplayCard) => {
                 </p>
               )}
 
-              <NavLink
-                to="/"
-                className={`width-full mt-4 h-5 ${
-                  expandedCard ? "h-auto" : ""
-                }`}
-              >
-                <Button
-                  className={`h-full w-full rounded-none bg-blue-300 font-bold text-black hover:bg-blue-300 dark:bg-green-300 dark:text-green-950 dark:hover:bg-green-300 ${
-                    expandedCard
-                      ? "rounded-md bg-blue-400 py-2 dark:bg-green-400"
-                      : ""
-                  } transitional-all duration-300 ease-in-out`}
+              {viewDetailsLink && (
+                <NavLink
+                  to={viewDetailsLink}
+                  className={`width-full mt-4 h-5 ${
+                    expandedCard ? "h-auto" : ""
+                  }`}
                 >
-                  {`${expandedCard ? "View details" : ""}`}
-                </Button>
-              </NavLink>
+                  <Button
+                    className={`h-full w-full rounded-none bg-blue-300 font-bold text-black hover:bg-blue-300 dark:bg-green-300 dark:text-green-950 dark:hover:bg-green-300 ${
+                      expandedCard
+                        ? "rounded-md bg-blue-400 py-2 dark:bg-green-400"
+                        : ""
+                    } transitional-all duration-300 ease-in-out`}
+                  >
+                    {`${expandedCard ? "View details" : ""}`}
+                  </Button>
+                </NavLink>
+              )}
             </>
           )}
         </div>
