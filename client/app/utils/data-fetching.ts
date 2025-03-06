@@ -6,7 +6,7 @@ import { type ZodObject } from "zod";
  * @property {ZodObject<any>} [parseDataWith] - Optional Zod schema to validate and parse the response data
  */
 interface fetchFromServerOptions {
-    parseDataWith?: ZodObject<any>;
+  parseDataWith?: ZodObject<any>;
 }
 
 /**
@@ -23,22 +23,22 @@ interface fetchFromServerOptions {
  * const dataValidated = await fetchFromServer<UserData>('/users/123', { parseDataWith: userSchema });
  */
 export const fetchFromServer = async <T>(
-    path: string,
-    opts?: fetchFromServerOptions
+  path: string,
+  opts?: fetchFromServerOptions,
 ): Promise<T> => {
-    const env = import.meta.env;
-    const apiUrl = env.DEV ? env.VITE_API_URL_DEV : env.VITE_API_URL_PROD;
+  const env = import.meta.env;
+  const apiUrl = env.DEV ? env.VITE_API_URL_DEV : env.VITE_API_URL_PROD;
 
-    try {
-        const res = await fetch(`${apiUrl}/api${path}`);
-        const data = await res.json();
+  try {
+    const res = await fetch(`${apiUrl}/api${path}`);
+    const data = await res.json();
 
-        if (opts && opts.parseDataWith) {
-            return opts.parseDataWith.parse(data) as T;
-        }
-        return data as T;
-    } catch (err) {
-        console.error(err);
-        throw err;
+    if (opts && opts.parseDataWith) {
+      return opts.parseDataWith.parse(data) as T;
     }
+    return data as T;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 };
