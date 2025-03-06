@@ -44,7 +44,7 @@ export const NavBar = ({ children }: INavBar) => {
 
         {isOpen && (
           <div className="flex flex-col md:hidden">
-            <div className="absolute z-100000 flex h-[80vh] w-full flex-auto flex-col items-center gap-4 bg-gradient-to-b from-white via-white to-transparent p-3 dark:from-dark-secondary dark:via-dark-secondary">
+            <div className="absolute z-1001 flex h-[80vh] w-full flex-auto flex-col items-center gap-4 bg-gradient-to-b from-white via-white to-transparent p-3 dark:from-dark-secondary dark:via-dark-secondary">
               {navLinks.map((link, i) => (
                 <div key={i}>{link}</div>
               ))}

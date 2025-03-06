@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { Button } from "../button/button";
-import { Camera, ChevronLeft, ChevronRight } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
-interface ICarousel {
+import { Button } from "../button/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+interface ICarousel extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   autoPlay?: boolean;
   interval?: number;
@@ -11,12 +13,14 @@ interface ICarousel {
 }
 
 export const Carousel = ({
+  className,
   children,
   autoPlay = false,
   interval = 5000,
   showIndicators = true,
+  ...props
 }: ICarousel) => {
-  const ACTION_COOLDOWN = 500;
+  const ACTION_COOLDOWN = 200;
 
   const items = React.Children.toArray(children);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -63,7 +67,7 @@ export const Carousel = ({
   if (items.length === 0) return;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className={twMerge(`flex flex-col gap-1`, className)} {...props}>
       <div className="relative flex justify-center px-12">
         <Button
           onClick={goToPrevious}

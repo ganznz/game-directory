@@ -74,6 +74,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   {value.gamesData.map((game, i) => (
                     <DisplayCard
                       key={i}
+                      viewDetailsLink={`/games/${game.id}`}
                       data={{
                         name: game.name,
                         summary: game.summary,
@@ -110,6 +111,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   {value.genresData.map((genre, i) => (
                     <DisplayCard
                       key={i}
+                      viewDetailsLink={`/genres/${genre.id}`}
                       data={{
                         name: genre.name,
                         gameDetails: {
@@ -149,6 +151,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   {value.developersData.map((developer, i) => (
                     <DisplayCard
                       key={i}
+                      viewDetailsLink={`/developers/${developer.id}`}
                       data={{
                         name: developer.name,
                         logo: {
