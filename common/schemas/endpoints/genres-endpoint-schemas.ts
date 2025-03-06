@@ -8,7 +8,7 @@ const gameInGenreSchema = z.object({
     id: z.number(),
     name: z.string(),
     summary: z.string().optional(),
-    total_rating: z.number(),
+    total_rating: z.number().optional(),
     artworks: z
         .array(
             z.object({
@@ -17,10 +17,12 @@ const gameInGenreSchema = z.object({
             })
         )
         .optional(),
-    cover: z.object({
-        id: z.number(),
-        url: z.string(),
-    }),
+    cover: z
+        .object({
+            id: z.number(),
+            url: z.string(),
+        })
+        .optional(),
 });
 
 /**
@@ -70,25 +72,29 @@ export const getGenresEndpointSchema = z.array(
     z.object({
         id: z.number(),
         name: z.string(),
-        gameDetails: z.object({
-            id: z.number(),
-            cover: z.object({
+        gameDetails: z
+            .object({
                 id: z.number(),
-                url: z.string(),
-            }),
-            genres: z.array(z.number()),
-            name: z.string(),
-            summary: z.string(),
-            total_rating: z.number(),
-            artworks: z
-                .array(
-                    z.object({
+                cover: z
+                    .object({
                         id: z.number(),
                         url: z.string(),
                     })
-                )
-                .optional(),
-        }),
+                    .optional(),
+                genres: z.array(z.number()).optional(),
+                name: z.string(),
+                summary: z.string().optional(),
+                total_rating: z.number().optional(),
+                artworks: z
+                    .array(
+                        z.object({
+                            id: z.number(),
+                            url: z.string(),
+                        })
+                    )
+                    .optional(),
+            })
+            .optional(),
     })
 );
 
@@ -163,12 +169,14 @@ export type getGenreByIdEndpointType = z.infer<
  */
 export const getGamesByGenreEndpointSchema = z.array(
     gameInGenreSchema.extend({
-        genres: z.array(
-            z.object({
-                id: z.number(),
-                name: z.string(),
-            })
-        ),
+        genres: z
+            .array(
+                z.object({
+                    id: z.number(),
+                    name: z.string(),
+                })
+            )
+            .optional(),
     })
 );
 
@@ -208,24 +216,28 @@ export const getDevelopersByGenreEndpointSchema = z.array(
         id: z.number(),
         name: z.string(),
         description: z.string().optional(),
-        logo: z.object({
-            id: z.number(),
-            url: z.string(),
-        }),
-        developed: z.array(
-            z.object({
+        logo: z
+            .object({
                 id: z.number(),
-                name: z.string(),
-                artworks: z
-                    .array(
-                        z.object({
-                            id: z.number(),
-                            url: z.string(),
-                        })
-                    )
-                    .optional(),
+                url: z.string(),
             })
-        ),
+            .optional(),
+        developed: z
+            .array(
+                z.object({
+                    id: z.number(),
+                    name: z.string(),
+                    artworks: z
+                        .array(
+                            z.object({
+                                id: z.number(),
+                                url: z.string(),
+                            })
+                        )
+                        .optional(),
+                })
+            )
+            .optional(),
     })
 );
 

@@ -6,12 +6,14 @@ import { z } from "zod";
 const developedGameSchema = z.array(
     z.object({
         id: z.number(),
-        name: z.string(),
+        name: z.string().optional(),
         summary: z.string().optional(),
-        cover: z.object({
-            id: z.number(),
-            url: z.string(),
-        }),
+        cover: z
+            .object({
+                id: z.number().optional(),
+                url: z.string().optional(),
+            })
+            .optional(),
     })
 );
 
@@ -45,8 +47,8 @@ const logoSchema = z.object({
 export const getDevelopersEndpointSchema = z.array(
     z.object({
         id: z.number(),
-        logo: logoSchema,
-        developed: developedGameSchema,
+        logo: logoSchema.optional(),
+        developed: developedGameSchema.optional(),
     })
 );
 
@@ -57,11 +59,11 @@ export type getDevelopersEndpointType = z.infer<
 
 export const getDeveloperByIdEndpointSchema = z.object({
     id: z.number(),
-    name: z.string(),
-    country: z.number(),
-    description: z.number(),
-    developed: developedGameSchema,
-    logo: logoSchema,
+    name: z.string().optional(),
+    country: z.number().optional(),
+    description: z.number().optional(),
+    developed: developedGameSchema.optional(),
+    logo: logoSchema.optional(),
     websites: z
         .array(
             z.object({
@@ -96,19 +98,23 @@ export type getDeveloperByIdEndpointType = z.infer<
 export const getGamesByDeveloperEndpointSchema = z.array(
     z.object({
         id: z.number(),
-        name: z.string(),
+        name: z.string().optional(),
         summary: z.string().optional(),
-        total_rating: z.number(),
-        cover: z.object({
-            id: z.number(),
-            url: z.string(),
-        }),
-        genres: z.array(
-            z.object({
+        total_rating: z.number().optional(),
+        cover: z
+            .object({
                 id: z.number(),
-                name: z.string(),
+                url: z.string(),
             })
-        ),
+            .optional(),
+        genres: z
+            .array(
+                z.object({
+                    id: z.number(),
+                    name: z.string(),
+                })
+            )
+            .optional(),
         artworks: z
             .array(
                 z.object({
