@@ -6,6 +6,7 @@ interface IPopoutImage extends ImgHTMLAttributes<HTMLImageElement> {
   onPoppedOutChange?: (poppedOut: boolean) => void;
   rotateCardEffect?: boolean;
   opts?: {
+    expandedBacksplash?: boolean;
     expandedBacksplashColourLight?: string; // e.g. "bg-[#39393b]"
     expandedBacksplashColourDark?: string; // e.g. "dark:bg-[#333333]"
   };
@@ -62,8 +63,8 @@ export const PopoutImage = ({
       <div
         className={twMerge(
           "fixed top-0 left-0 z-10000 flex h-screen w-screen items-center justify-center bg-black/70 transition-opacity duration-300",
-          opts?.expandedBacksplashColourLight || "bg-light-accent/40",
-          opts?.expandedBacksplashColourDark || "dark:bg-dark-accent/40",
+          opts?.expandedBacksplashColourLight || "bg-transparent",
+          opts?.expandedBacksplashColourDark || "bg-transparent",
           isPoppedOut ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         onClick={() => handlePoppedOutChange(!isPoppedOut)}
