@@ -1,3 +1,4 @@
+import { MousePointerClick, Pointer } from "lucide-react";
 import React, { useState, type ImgHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -9,6 +10,8 @@ interface IPopoutImage extends ImgHTMLAttributes<HTMLImageElement> {
     expandedBacksplash?: boolean;
     expandedBacksplashColourLight?: string; // e.g. "bg-[#39393b]"
     expandedBacksplashColourDark?: string; // e.g. "dark:bg-[#333333]"
+    returnTextColourLight?: string; // e.g. "text-[#39393b]"
+    returnTextColourDark?: string; // e.g. "dark:text-[#333333]"
   };
 }
 
@@ -62,7 +65,7 @@ export const PopoutImage = ({
       {/* popped out img */}
       <div
         className={twMerge(
-          "fixed top-0 left-0 z-10000 flex h-screen w-screen items-center justify-center bg-black/70 transition-opacity duration-300",
+          "fixed top-0 left-0 z-10000 flex h-screen w-screen flex-col items-center justify-center gap-10 bg-black/70 transition-opacity duration-300",
           opts?.expandedBacksplashColourLight || "bg-transparent",
           opts?.expandedBacksplashColourDark || "bg-transparent",
           isPoppedOut ? "opacity-100" : "pointer-events-none opacity-0",
@@ -81,6 +84,37 @@ export const PopoutImage = ({
             {...props}
           />
         </div>
+
+        {/* exit text */}
+        {/* i hate this :| */}
+        <p
+          className={twMerge(
+            "flex gap-2 italic",
+            opts?.returnTextColourLight || "text-gray-500",
+            opts?.returnTextColourDark || "dark:text-gray-300",
+          )}
+        >
+          <MousePointerClick className="hidden md:inline" />
+          <Pointer className="inline md:hidden" />
+          <span
+            className={twMerge(
+              "hidden md:inline",
+              opts?.returnTextColourLight || "text-gray-500",
+              opts?.returnTextColourDark || "dark:text-gray-300",
+            )}
+          >
+            Click anywhere to return...
+          </span>
+          <span
+            className={twMerge(
+              "inline md:hidden",
+              opts?.returnTextColourLight || "text-gray-500",
+              opts?.returnTextColourDark || "dark:text-gray-300",
+            )}
+          >
+            Tap anywhere to return...
+          </span>
+        </p>
       </div>
     </>
   );
